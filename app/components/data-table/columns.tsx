@@ -1,3 +1,4 @@
+import { IBike } from "@/app/types/bike";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -11,32 +12,7 @@ import {
 import { IconDots, IconSelector } from "@tabler/icons-react";
 import { ColumnDef } from "@tanstack/react-table";
 
-type category = "beginner" | "intermediate" | "advanced";
-
-export const dataBikes: IBike[] = [
-    {
-        id: "m5gr84i9",
-        name: "Bike 1",
-        id_category: "beginner",
-        description: "Description 1",
-    },
-    {
-        id: "3u1reuv4",
-        name: "Bike 2",
-        id_category: "intermediate",
-        description: "Description 2",
-    },
-];
-
-export type IBike = {
-    id: string;
-    id_category: category;
-    name: string;
-    description?: string;
-    image?: string;
-};
-
-export const columnsPayment: ColumnDef<IBike>[] = [
+export const columnsBikes: ColumnDef<IBike>[] = [
     {
         id: "select",
         header: ({ table }) => (
@@ -95,10 +71,10 @@ export const columnsPayment: ColumnDef<IBike>[] = [
         },
     },
     {
-        accessorKey: "id_category",
+        accessorKey: "id_level_category",
         header: () => <div className="">Category</div>,
         cell: ({ row }) => {
-            return <div className="">{row.getValue("id_category")}</div>;
+            return <div className="">{row.getValue("id_level_category")}</div>;
         },
     },
     // {

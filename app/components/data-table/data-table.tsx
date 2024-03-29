@@ -75,7 +75,7 @@ const DataTable = <T,>({
 
     return (
         <div className="w-full">
-            <div className="flex items-center py-4 gap-2">
+            <div className="flex items-center pb-4 gap-2">
                 <Input
                     placeholder="Filter description..."
                     value={
@@ -88,14 +88,14 @@ const DataTable = <T,>({
                             .getColumn("description")
                             ?.setFilterValue(event.target.value)
                     }
-                    className="max-w-sm bg-[#2B3139]"
+                    className="max-w-sm bg-[#F7F7F7] dark:bg-[#2B3139]"
                 />
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button
                             variant="outline"
                             // size={"sm"}
-                            className="transition-all ml-auto bg-[#2B3139] hover:bg-[#2B3139] hover:opacity-80 border-0"
+                            className="transition-all ml-auto bg-[#F7F7F7] hover:bg-[#F7F7F7] dark:bg-[#2B3139] dark:hover:bg-[#2B3139] hover:opacity-80 dark:border-0"
                         >
                             Columns
                             {/* <ChevronDownIcon className="ml-2 h-4 w-4" /> */}
