@@ -122,14 +122,20 @@ const DataTable = <T,>({
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-            <div className="rounded-md border">
-                <Table>
-                    <TableHeader>
+            <div className="">
+                <Table className="">
+                    <TableHeader className="bg-[#DFDFDF] dark:bg-[#0B0E11] ">
                         {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id}>
+                            <TableRow
+                                key={headerGroup.id}
+                                className=" hover:bg-[#DFDFDF] dark:hover:bg-[#0B0E11]"
+                            >
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id}>
+                                        <TableHead
+                                            key={header.id}
+                                            className="text-[#707A8A] dark:text-[#848E9C] text-xs "
+                                        >
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -156,6 +162,7 @@ const DataTable = <T,>({
                                             handleOnMouseOver(row.original);
                                         }
                                     }}
+                                    className="text-xs hover:bg-[#F5F5F5] dark:hover:bg-[#2B3139] border-0"
                                 >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>

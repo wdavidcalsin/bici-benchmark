@@ -5,6 +5,16 @@ export interface ILevelCategory {
     name: string;
 }
 
+export type Brands =
+    | "trek"
+    | "aventon"
+    | "canyon"
+    | "santa-cruz"
+    | "cervelo"
+    | "giant"
+    | "liv"
+    | "specialized";
+
 export type IBike = {
     id: string;
     name: string;
@@ -13,12 +23,14 @@ export type IBike = {
     id_bike_category?: BikeCategory;
     main_image?: string;
     other_images?: string[];
+    brand?: Brands;
 };
 
 export type BikeCategory =
     | "the-mountain-bike"
     | "the-road-bike"
-    | "urban-bicycling";
+    | "urban-bicycling"
+    | "the-gravel-bike";
 
 export interface IListOfBikeCategories {
     id: BikeCategory;

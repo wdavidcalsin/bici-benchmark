@@ -25,6 +25,7 @@ export const columnsBikes: ColumnDef<IBike>[] = [
                     table.toggleAllPageRowsSelected(!!value)
                 }
                 aria-label="Select all"
+                className="border-zinc-500 dark:border-zinc-400 ]"
             />
         ),
         cell: ({ row }) => (
@@ -32,6 +33,7 @@ export const columnsBikes: ColumnDef<IBike>[] = [
                 checked={row.getIsSelected()}
                 onCheckedChange={(value) => row.toggleSelected(!!value)}
                 aria-label="Select row"
+                className="border-zinc-500 dark:border-zinc-400 ]"
             />
         ),
         enableSorting: false,
@@ -53,6 +55,7 @@ export const columnsBikes: ColumnDef<IBike>[] = [
                     onClick={() =>
                         column.toggleSorting(column.getIsSorted() === "asc")
                     }
+                    className="text-xs"
                 >
                     Name
                     <IconSelector className="ml-2 h-4 w-4" />
@@ -60,21 +63,31 @@ export const columnsBikes: ColumnDef<IBike>[] = [
             );
         },
         cell: ({ row }) => (
-            <div className="lowercase">{row.getValue("name")}</div>
+            <div className="line-clamp-2 font-semibold">
+                {row.getValue("name")}
+            </div>
         ),
     },
     {
         accessorKey: "description",
         header: () => <div className="">Description</div>,
         cell: ({ row }) => {
-            return <div className="">{row.getValue("description")}</div>;
+            return (
+                <div className="line-clamp-2 dark:text-zinc-400">
+                    {row.getValue("description")}
+                </div>
+            );
         },
     },
     {
         accessorKey: "id_level_category",
         header: () => <div className="">Category</div>,
         cell: ({ row }) => {
-            return <div className="">{row.getValue("id_level_category")}</div>;
+            return (
+                <div className="text-[#0ECB81] capitalize">
+                    {row.getValue("id_level_category")}
+                </div>
+            );
         },
     },
     // {
