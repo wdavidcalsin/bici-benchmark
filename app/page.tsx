@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
@@ -14,8 +15,17 @@ import {
     ResizablePanel,
     ResizablePanelGroup,
 } from "@/components/ui/resizable";
+import ImageMagnifier from "./components/image-magnifier";
+import { IBike } from "./types/bike";
+import BikeInfoCard from "./components/bike-info-card";
 
 export default function Home() {
+    const [bike, setBike] = React.useState<IBike | null>(null);
+
+    const handleMouseOver = (rowBike: IBike) => {
+        setBike(rowBike);
+    };
+
     return (
         <main className="min-h-screen ">
             <div className="flex gap-2 mb-6 flex-wrap">
@@ -71,6 +81,7 @@ export default function Home() {
                                     <DataTable
                                         data={dataBikes}
                                         columns={columnsBikes}
+                                        handleOnMouseOver={handleMouseOver}
                                     />
                                 </div>
                             </TabsContent>
@@ -84,6 +95,7 @@ export default function Home() {
                                                     level.id
                                             )}
                                             columns={columnsBikes}
+                                            handleOnMouseOver={handleMouseOver}
                                         />
                                     </div>
                                 </TabsContent>
@@ -91,34 +103,9 @@ export default function Home() {
                         </Tabs>
                     </div>
                 </ResizablePanel>
-                <ResizableHandle className="bg-transparent border border-dashed border-[#2B3139]" />
+                <ResizableHandle className="bg-transparent border border-dashed border-zinc-300 dark:border-[#2B3139]" />
                 <ResizablePanel>
-                    <div className="pl-4 flex flex-col gap-4">
-                        <Image
-                            sizes="100vw"
-                            width={900}
-                            height={600}
-                            src={"/images/bikes/bike-1.webp"}
-                            alt=""
-                            className="rounded-md"
-                        />
-                        <div className="flex flex-col gap-2">
-                            <h1 className="font-bold text-zinc-300">
-                                Slash 9.9 XX1 Flight Attendant Gen 5
-                            </h1>
-                            <p className="text-sm text-zinc-400">
-                                Slash 9.9 is the fastest enduro mountain bike in
-                                the lineup, so it's no surprise it's the go-to
-                                ride for the pros of Trek Factory Racing Enduro.
-                                A full carbon frame, all-new hard-charging
-                                suspension with RockShox Flight Attendant,
-                                fast-rolling carbon wheels, and a SRAM wireless
-                                electronic drivetrain and dropper make this
-                                top-of-the-line ride the undisputed king of
-                                enduro.
-                            </p>
-                        </div>
-                    </div>
+                    <BikeInfoCard bike={bike} />
                 </ResizablePanel>
             </ResizablePanelGroup>
         </main>
