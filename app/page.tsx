@@ -1,35 +1,29 @@
 "use client";
 
-import * as React from "react";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Image from "next/image";
-import Link from "next/link";
-import { columnsBikes } from "./components/data-table/columns";
-import DataTable from "./components/data-table/data-table";
-import { listOfBikeCategories } from "./constants/bike-category";
-import { dataBikes } from "./constants/bikes";
-import { levelsCategory } from "./constants/level-category";
 import {
     ResizableHandle,
     ResizablePanel,
     ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import ImageMagnifier from "./components/image-magnifier";
-import { IBike } from "./types/bike";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Image from "next/image";
+import Link from "next/link";
 import BikeInfoCard from "./components/bike-info-card";
+import { columnsBikes } from "./components/data-table/columns";
+import DataTable from "./components/data-table/data-table";
+import { listOfBikeCategories } from "./constants/bike-category";
+import { dataBikes } from "./constants/bikes";
+import { levelsCategory } from "./constants/level-category";
+import { useSelectedBike } from "./hooks/useSelectedBike";
 
 export default function Home() {
-    const [bike, setBike] = React.useState<IBike | null>(null);
-
-    const handleMouseOver = (rowBike: IBike) => {
-        setBike(rowBike);
-    };
+    const { bike, handleMouseOver, handleSetMainImage } = useSelectedBike();
 
     return (
         <main className="min-h-screen ">
             <div className="flex gap-2 mb-6 flex-wrap">
-                {listOfBikeCategories.map((category) => (
+                {Object.entries(listOfBikeCategories).map(([key, category]) => (
                     <Button
                         className={
                             " bg-[#F5F5F5] dark:bg-[#2B3139] rounded-full font-normal text-xs dark:border-0 py-0 my-0 max-h-8"
@@ -105,7 +99,10 @@ export default function Home() {
                 </ResizablePanel>
                 <ResizableHandle className="bg-transparent border border-dashed border-zinc-300 dark:border-[#2B3139]" />
                 <ResizablePanel>
-                    <BikeInfoCard bike={bike} />
+                    <BikeInfoCard
+                        bike={bike}
+                        handleSetMainImage={handleSetMainImage}
+                    />
                 </ResizablePanel>
             </ResizablePanelGroup>
         </main>

@@ -21,7 +21,6 @@ const ImageMagnifier = ({
     const [showMagnifier, setShowMagnifier] = React.useState(false);
 
     return (
-        // the container
         <div
             className="overflow-hidden"
             style={{

@@ -1,3 +1,4 @@
+import { listOfBikeCategories } from "@/app/constants/bike-category";
 import { IBike } from "@/app/types/bike";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -81,11 +82,23 @@ export const columnsBikes: ColumnDef<IBike>[] = [
     },
     {
         accessorKey: "id_level_category",
-        header: () => <div className="">Category</div>,
+        header: () => <div className="">Level Category</div>,
         cell: ({ row }) => {
             return (
                 <div className="text-[#0ECB81] capitalize">
                     {row.getValue("id_level_category")}
+                </div>
+            );
+        },
+    },
+    {
+        accessorKey: "id_bike_category",
+        header: () => <div className="">Bike Category</div>,
+        cell: ({ row }) => {
+            return (
+                <div className="text-[#F0B90B] capitalize text-nowrap font-semibold">
+                    {listOfBikeCategories[row.original.id_bike_category!]?.name}
+                    {/* {row.getValue("id_bike_category")} */}
                 </div>
             );
         },

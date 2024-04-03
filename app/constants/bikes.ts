@@ -20,6 +20,7 @@ export const dataBikes: IBike[] = [
         id_bike_category: "the-mountain-bike",
         brand: "specialized",
         main_image: "/images/bikes/bike-2.webp",
+        other_images: ["/images/bikes/bike-2.webp"],
     },
     {
         id: "bike-3",
@@ -29,6 +30,7 @@ export const dataBikes: IBike[] = [
         id_level_category: "advanced",
         id_bike_category: "the-road-bike",
         brand: "giant",
+        main_image: "/images/bikes/bike-1.webp",
     },
     {
         id: "bike-4",
@@ -38,6 +40,11 @@ export const dataBikes: IBike[] = [
         id_level_category: "advanced",
         id_bike_category: "the-mountain-bike",
         brand: "trek",
+        main_image: "/images/bikes/bike-4.webp",
+        other_images: [
+            "/images/bikes/bike-4.webp",
+            "/images/bikes/bike-1.webp",
+        ],
     },
     {
         id: "bike-5",
