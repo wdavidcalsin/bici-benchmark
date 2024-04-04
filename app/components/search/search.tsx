@@ -7,14 +7,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const findCategory = (id: BikeCategory) => {
-    return listOfBikeCategories[id!];
-};
-
 const Search: React.FC = () => {
     const [search, setSearch] = React.useState<string>("");
     const [searchResults, setSearchResults] = React.useState<IBike[]>([]);
     const [isShowResults, setIsShowResult] = React.useState<boolean>(false);
+    const [isOnBlur, setIsOnBlur] = React.useState<boolean>(false);
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
@@ -49,14 +46,19 @@ const Search: React.FC = () => {
                     placeholder="Search bikes"
                     onFocus={() => setIsShowResult(true)}
                     onBlur={() => {
-                        setTimeout(() => {
+                        if (!isOnBlur) {
                             setIsShowResult(false);
-                        }, 100);
+                        }
+
+                        // console.log(showResultsRef.current);
+                        // setTimeout(() => {
+                        //     setIsShowResult(false);
+                        // }, 100);
                     }}
                 />
                 {search.length > 0 && (
                     <button
-                        className="py-3 px-3 hover:bg-black/10"
+                        className="text-[#F0B90B] py-3 px-3 hover:bg-black/10 "
                         onClick={() => {
                             setSearch("");
                             setSearchResults([]);
@@ -67,13 +69,18 @@ const Search: React.FC = () => {
                 )}
             </div>
             {isShowResults && searchResults.length > 0 && (
-                <div className="absolute left-0 right-0 top-full bg-[#1E2329] rounded-lg z-50 max-h-80 overflow-y-auto max-w-md">
+                <div
+                    className="absolute left-0 right-0 top-full bg-zinc-50 dark:bg-[#1E2329] rounded-lg z-50 max-h-80 overflow-y-auto max-w-md"
+                    // ref={showResultsRef}
+                    onMouseOver={() => setIsOnBlur(true)}
+                    onMouseLeave={() => setIsOnBlur(false)}
+                >
                     <ul>
                         {searchResults.map((bike, index) => (
                             <li key={index}>
                                 <Link
                                     href={`bike/${bike.id}`}
-                                    className="flex flex-col gap-2 py-2 px-4 text-zinc-300 text-xs hover:bg-[#0B0E11]"
+                                    className="flex flex-col gap-2 py-2 px-4 text-zinc-700  dark:text-zinc-300 text-xs hover:bg-zinc-200/50 dark:hover:bg-[#0B0E11]"
                                 >
                                     <span>{bike.name}</span>
                                     <div className="flex gap-1">
