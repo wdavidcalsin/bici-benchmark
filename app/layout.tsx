@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "./components/theme-provides";
 import Navigation from "./components/navigation/navigation";
 import { Container } from "./components/container";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,17 +20,19 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={inter.className}>
+            <body
+                className={(cn(inter.className), "bg-white dark:bg-[#181A20]")}
+            >
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <div className="bg-white dark:bg-[#181A20]">
+                    <div>
                         <Navigation />
                         <Container variant={"fullMobileConstrainedPadded"}>
-                            <div className="pt-16">{children}</div>
+                            <div className="mt-16 pb-4">{children}</div>
                         </Container>
                     </div>
                 </ThemeProvider>
