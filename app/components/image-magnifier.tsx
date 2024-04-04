@@ -88,24 +88,26 @@ const ImageMagnifier: React.FC<ImageMagnifierProps> = ({
 
     return (
         <div>
-            <div className="flex gap-1 justify-end text-zinc-100">
-                <span className="mr-2 text-zinc-300">
-                    {state.zoomLevel.toFixed(1)}
-                </span>
-                <button
-                    disabled={increaseDisabled}
-                    className={increaseButtonClass}
-                    onClick={increaseZoom}
-                >
-                    <IconZoomIn size={15} />
-                </button>
-                <button
-                    disabled={decreaseDisabled}
-                    className={decreaseButtonClass}
-                    onClick={decreaseZoom}
-                >
-                    <IconZoomOut size={15} />
-                </button>
+            <div className="flex gap-1 justify-end text-zinc-700 dark:text-zinc-100 ">
+                <div className="bg-[#F7F7F7] dark:bg-transparent border dark:border-zinc-800 rounded-md  flex items-center">
+                    <span className="px-1 text-zinc-700 dark:text-zinc-300 text-xs border-r">
+                        {state.zoomLevel.toFixed(1)}
+                    </span>
+                    <button
+                        disabled={increaseDisabled}
+                        className={cn(increaseButtonClass, "border-r")}
+                        onClick={increaseZoom}
+                    >
+                        <IconZoomIn size={15} />
+                    </button>
+                    <button
+                        disabled={decreaseDisabled}
+                        className={decreaseButtonClass}
+                        onClick={decreaseZoom}
+                    >
+                        <IconZoomOut size={15} />
+                    </button>
+                </div>
             </div>
             <div
                 className="overflow-hidden mt-1"
@@ -118,7 +120,7 @@ const ImageMagnifier: React.FC<ImageMagnifierProps> = ({
                 <Image
                     src={src}
                     // style={{ height: height, width: width }}
-                    width={900}
+                    width={2000}
                     height={600}
                     alt={"img"}
                     className="rounded-md"
@@ -129,17 +131,14 @@ const ImageMagnifier: React.FC<ImageMagnifierProps> = ({
                         setShowMagnifier(true);
                     }}
                     onMouseMove={(e) => {
-                        // update cursor position
                         const elem = e.currentTarget;
                         const { top, left } = elem.getBoundingClientRect();
 
-                        // calculate cursor position on the image
                         const x = e.pageX - left - window.pageXOffset;
                         const y = e.pageY - top - window.pageYOffset;
                         setXY([x, y]);
                     }}
                     onMouseLeave={() => {
-                        // close magnifier
                         setShowMagnifier(false);
                     }}
                 />
@@ -149,27 +148,19 @@ const ImageMagnifier: React.FC<ImageMagnifierProps> = ({
                     style={{
                         display: showMagnifier ? "" : "none",
                         position: "absolute",
-
-                        // prevent magnifier blocks the mousemove event of img
                         pointerEvents: "none",
-                        // set size of magnifier
                         height: `${magnifierHeight}px`,
                         width: `${magnifierWidth}px`,
-                        // move element center to cursor pos
                         top: `${y - magnifierHeight / 2}px`,
                         left: `${x - magnifierWidth / 2}px`,
-                        opacity: "1", // reduce opacity so you can verify position
+                        opacity: "1",
                         border: "5px solid lightgray",
                         backgroundColor: "white",
                         backgroundImage: `url('${src}')`,
                         backgroundRepeat: "no-repeat",
-
-                        //calculate zoomed image size
                         backgroundSize: `${imgWidth * state.zoomLevel}px ${
                             imgHeight * state.zoomLevel
                         }px`,
-
-                        //calculate position of zoomed image.
                         backgroundPositionX: `${
                             -x * state.zoomLevel + magnifierWidth / 2
                         }px`,
@@ -202,7 +193,7 @@ const getButtonValidation = (
             ? zoomLevel >= comparisonValue
             : zoomLevel <= comparisonValue;
     const buttonClass = cn(
-        "bg-slate-700/50 p-1 rounded-sm transition-all",
+        " p-1 rounded-sm transition-all",
         isDisabled
             ? "cursor-not-allowed opacity-70"
             : "cursor-pointer hover:opacity-80"
