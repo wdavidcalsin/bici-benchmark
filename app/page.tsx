@@ -23,7 +23,7 @@ export default function Home() {
     const { bike, handleMouseOver, handleSetMainImage } = useSelectedBike();
 
     return (
-        <main className="min-h-screen ">
+        <main className="">
             <div>
                 <Search />
             </div>
