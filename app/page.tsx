@@ -16,38 +16,20 @@ import { listOfBikeCategories } from "./constants/bike-category";
 import { dataBikes } from "./constants/bikes";
 import { levelsCategory } from "./constants/level-category";
 import { useSelectedBike } from "./hooks/useSelectedBike";
+import Search from "./components/search/search";
+import ListOfBikeCategory from "./components/home/list-of-bike-category";
 
 export default function Home() {
     const { bike, handleMouseOver, handleSetMainImage } = useSelectedBike();
 
     return (
         <main className="min-h-screen ">
-            <div className="flex gap-2 mb-6 flex-wrap">
-                {Object.entries(listOfBikeCategories).map(([key, category]) => (
-                    <Button
-                        className={
-                            " bg-[#F5F5F5] dark:bg-[#2B3139] rounded-full font-normal text-xs dark:border-0 py-0 my-0 max-h-8"
-                        }
-                        size={"sm"}
-                        variant={"outline"}
-                        key={category.id}
-                        asChild
-                    >
-                        <Link href={category.href || ""}>
-                            {category.image_icon && (
-                                <Image
-                                    className="mr-2 h-4 w-4"
-                                    width={20}
-                                    height={20}
-                                    src={category.image_icon}
-                                    alt=""
-                                />
-                            )}
-                            {category.name}
-                        </Link>
-                    </Button>
-                ))}
+            <div>
+                <Search />
             </div>
+
+            <ListOfBikeCategory />
+
             <ResizablePanelGroup direction="horizontal">
                 <ResizablePanel>
                     <div className="pr-4 ">
