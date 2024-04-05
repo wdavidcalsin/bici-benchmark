@@ -6,6 +6,10 @@ import BikeNotSelectedMessage from "./bike-not-selected-message";
 import EmptyImage from "./empty-image";
 import { cn } from "@/lib/utils";
 import { useResponsive } from "../hooks/useResponsive";
+import { levelsCategory } from "../constants/level-category";
+import { listOfBikeCategories } from "../constants/bike-category";
+import Badge from "./badge";
+import { dataBikes } from "../constants/bikes";
 
 type Variant = "default" | "page";
 
@@ -24,6 +28,10 @@ const BikeInfoCard: React.FC<BikeInfoCardProps> = ({
     const [selectedImage, setSelectedImage] = React.useState<string | null>(
         bike?.main_image || null
     );
+
+    const originalMainImage = dataBikes.find(
+        (b) => b.id === bike?.id
+    )?.main_image;
 
     if (!bike) {
         return <BikeNotSelectedMessage />;
@@ -55,7 +63,7 @@ const BikeInfoCard: React.FC<BikeInfoCardProps> = ({
                 ) : (
                     <EmptyImage message="The bicycle image will be added soon." />
                 )}
-                {bike.other_images && bike.other_images.length > 0 && (
+                {bike.main_image && (
                     <div
                         className={cn(
                             "flex p-1 gap-1 rounded-md bg-[#F4F4F5] dark:bg-[#2B3139]",
@@ -64,9 +72,9 @@ const BikeInfoCard: React.FC<BikeInfoCardProps> = ({
                                 : "flex-row sm:flex-col"
                         )}
                     >
-                        {bike.other_images.map((image, index) => (
+                        {originalMainImage && (
                             <Image
-                                key={index}
+                                key={bike.id}
                                 width={
                                     variant === "default"
                                         ? 100
@@ -75,19 +83,48 @@ const BikeInfoCard: React.FC<BikeInfoCardProps> = ({
                                         : 250
                                 }
                                 height={400}
-                                src={image}
+                                src={originalMainImage}
                                 alt=""
-                                className="transition-all duration-200 rounded-md cursor-pointer hover:scale-[1.02] "
+                                className="transition-all duration-200 rounded-md cursor-pointer hover:scale-[1.02]"
                                 onClick={() => {
                                     if (variant === "default") {
                                         handleSetMainImage &&
-                                            handleSetMainImage(image);
+                                            handleSetMainImage(
+                                                originalMainImage
+                                            );
                                     } else {
-                                        setSelectedImage(image);
+                                        setSelectedImage(originalMainImage);
                                     }
                                 }}
                             />
-                        ))}
+                        )}
+
+                        {bike.other_images &&
+                            bike.other_images.length > 0 &&
+                            bike.other_images.map((image, index) => (
+                                <Image
+                                    key={index}
+                                    width={
+                                        variant === "default"
+                                            ? 100
+                                            : isMobile
+                                            ? 80
+                                            : 250
+                                    }
+                                    height={400}
+                                    src={image}
+                                    alt=""
+                                    className="transition-all duration-200 rounded-md cursor-pointer hover:scale-[1.02] "
+                                    onClick={() => {
+                                        if (variant === "default") {
+                                            handleSetMainImage &&
+                                                handleSetMainImage(image);
+                                        } else {
+                                            setSelectedImage(image);
+                                        }
+                                    }}
+                                />
+                            ))}
                     </div>
                 )}
             </div>
@@ -96,6 +133,18 @@ const BikeInfoCard: React.FC<BikeInfoCardProps> = ({
                 <h1 className="font-bold text-zinc-700 dark:text-zinc-300">
                     {bike.name}
                 </h1>
+                <div className="flex justify-start gap-2">
+                    <Badge>
+                        {listOfBikeCategories[bike.id_bike_category!]?.name}
+                    </Badge>
+                    <Badge color="green">
+                        {
+                            levelsCategory.find(
+                                (level) => level.id === bike.id_level_category
+                            )?.name
+                        }
+                    </Badge>
+                </div>
                 <p className="text-sm text-zinc-600 dark:text-zinc-400">
                     {bike.description}
                 </p>
