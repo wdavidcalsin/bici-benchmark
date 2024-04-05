@@ -12,14 +12,14 @@ const ListOfBikeCategory: React.FC<ListOfBikeCategoryProps> = () => {
             {Object.entries(listOfBikeCategories).map(([key, category]) => (
                 <Button
                     className={
-                        " bg-[#F5F5F5] dark:bg-[#2B3139] rounded-full font-normal text-xs dark:border-0 py-0 my-0 max-h-8"
+                        " bg-[#F5F5F5] dark:bg-[#2B3139] rounded-full font-semibold text-zinc-500 dark:text-zinc-300 text-xs dark:border-0 py-0 my-0 max-h-8"
                     }
                     size={"sm"}
                     variant={"outline"}
                     key={category.id}
                     asChild
                 >
-                    <Link href={category.href || ""}>
+                    <Link href={`category/${category.id}`}>
                         {category.image_icon && (
                             <Image
                                 className="mr-2 h-4 w-4"
