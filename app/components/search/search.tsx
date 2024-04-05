@@ -39,7 +39,7 @@ const Search: React.FC = () => {
                     <IconSearch size={15} />
                 </div>
                 <input
-                    className="bg-transparent border-0 outline-0  w-full text-xs selection:bg-[#F0B90B] selection:text-zinc-900 caret-[#F0B90B]"
+                    className="bg-transparent border-0 outline-0  w-full text-xs selection:bg-[#F0B90B] selection:text-zinc-900 caret-[#F0B90B] font-semibold"
                     type="text"
                     onChange={handleSearchChange}
                     value={search}
