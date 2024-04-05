@@ -37,5 +37,4 @@ export interface IListOfBikeCategories {
     name: string;
     description?: string;
     image_icon?: string;
-    href?: string;
 }
